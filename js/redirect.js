@@ -35,7 +35,7 @@ function getRedirectData(url){
                 executeRedirect(path.toLowerCase());
             }
 
-        } else if(this.status === 404){
+        } else if(this.readyState == 4 && (this.status === 404 || this.status === 0)){
             console.log("Couldn't get redirect data");
             window.location.href = "/not_found.html";
         }
