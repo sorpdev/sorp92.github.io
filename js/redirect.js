@@ -1,11 +1,6 @@
-const REDIRECT_DATA = {
-    "/youtube": "https://www.youtube.com/channel/UCkxDSg55pwsr7PSAagbz4MA",
-    "/github": "https://github.com/sorp92",
-    "/trakt": "https://trakt.tv/users/sorp",
-    "/twitch": "https://www.twitch.tv/sorp"
-};
-
 var path = window.location.pathname;
+
+let REDIRECT_DATA;
 
 function checkForRedirect(p){
     if(REDIRECT_DATA[p] !== undefined) return REDIRECT_DATA[p];
@@ -21,9 +16,23 @@ function executeRedirect(path){
     }
 }
 
-if(path.endsWith(".html")){
-    var pathWithoutHtml = path.split(".html")[0];
-    executeRedirect(pathWithoutHtml.toLowerCase());
-} else {
-    executeRedirect(path.toLowerCase());
+function getRedirectData(){
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            REDIRECT_DATA = JSON.parse(this.responseText);
+
+            if(path.endsWith(".html")){
+                var pathWithoutHtml = path.split(".html")[0];
+                executeRedirect(pathWithoutHtml.toLowerCase());
+            } else {
+                executeRedirect(path.toLowerCase());
+            }
+
+        }
+    };
+    xmlhttp.open("GET", "/data/redirects.json", true);
+    xmlhttp.send();
 }
+getRedirectData();
