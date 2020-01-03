@@ -1,3 +1,5 @@
+const REDIRECT_DATA_URL = "http://redirect.sorp.xyz/";
+
 var path = window.location.pathname;
 
 let REDIRECT_DATA;
@@ -16,11 +18,12 @@ function executeRedirect(path){
     }
 }
 
-function getRedirectData(){
+function getRedirectData(url){
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+
             REDIRECT_DATA = JSON.parse(this.responseText);
 
             if(path.endsWith(".html")){
@@ -32,7 +35,8 @@ function getRedirectData(){
 
         }
     };
-    xmlhttp.open("GET", "/data/redirects.json", true);
+    xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
-getRedirectData();
+
+getRedirectData(REDIRECT_DATA_URL);
