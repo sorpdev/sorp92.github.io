@@ -28,7 +28,7 @@ function executeRedirect(path, noRedirectCallback, parameter) {
 function redirectToNotFound() {
   console.log("No redirect found for " + path);
   //Load 404 page
-  window.location.href = "/not_found.html";
+  window.location.href = "/not_found";
 }
 
 //Check normal
