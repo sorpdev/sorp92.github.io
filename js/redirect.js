@@ -1,6 +1,6 @@
 const REDIRECT_DATA = {
-  "/youtube": "https://www.youtube.com/channel/UCkxDSg55pwsr7PSAagbz4MA",
-  "/github": "https://github.com/sorp92",
+  "/youtube, /yt": "https://www.youtube.com/channel/UCkxDSg55pwsr7PSAagbz4MA",
+  "/github, /git": "https://github.com/sorp92",
   "/trakt": "https://trakt.tv/users/sorp",
   "/twitch": "https://www.twitch.tv/sorp"
 };
@@ -12,8 +12,31 @@ if (path.endsWith("/"))
   path = path.substr(0, path.length - 1);
 
 function checkForRedirect(p) {
-  if (REDIRECT_DATA[p] !== undefined) return REDIRECT_DATA[p];
+  var redirect;
+
+  Object.keys(REDIRECT_DATA).forEach((trigger, index) => {
+
+    if(trigger.includes(",")){
+
+      var triggerSplit = trigger.split(",");
+
+      triggerSplit.forEach((t) => {
+
+        t = t.trim();
+
+        if(t === trigger) redirect = REDIRECT_DATA[index];
+
+      });
+
+    } else {
+      if(p === trigger) redirect = REDIRECT_DATA[index];
+    }
+
+  });
+
+  if(redirect !== undefined) return redirect;
   else return false;
+  
 }
 
 function executeRedirect(path, noRedirectCallback, parameter) {
