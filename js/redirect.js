@@ -6,6 +6,13 @@ const REDIRECT_DATA = {
 };
 
 var path = window.location.pathname;
+var debug = false;
+
+if(path.endsWith("?debug")){
+  path = path.substr(0, path.length - "?debug".length);
+  debug = true;
+  console.log("Debug enabled");
+}
 
 //Remove / at the end
 if (path.endsWith("/"))
@@ -16,13 +23,19 @@ function checkForRedirect(p) {
 
   Object.keys(REDIRECT_DATA).forEach((trigger, index) => {
 
+    if(debug) console.log("Comparing",p,"and",trigger," INDEX", index);
+
     if(trigger.includes(",")){
+
+      if(debug) console.log("Doing alias check for",trigger," INDEX", index);
 
       var triggerSplit = trigger.split(",");
 
       triggerSplit.forEach((t) => {
 
         t = t.trim();
+
+        if(debug) console.log("Alias comparing",p,"and",t);
 
         if(p === t) redirect = REDIRECT_DATA[index];
 
@@ -34,6 +47,8 @@ function checkForRedirect(p) {
 
   });
 
+  if(debug) console.log("redirect=",redirect);
+  
   if(redirect !== undefined) return redirect;
   else return false;
   
