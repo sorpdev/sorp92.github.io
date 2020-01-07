@@ -24,7 +24,7 @@ function checkForRedirect(p) {
 
         t = t.trim();
 
-        if(t === trigger) redirect = REDIRECT_DATA[index];
+        if(p === t) redirect = REDIRECT_DATA[index];
 
       });
 
