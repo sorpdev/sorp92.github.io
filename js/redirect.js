@@ -20,7 +20,7 @@ if (path.endsWith("/"))
 function checkForRedirect(p) {
   var redirect;
 
-  Object.keys(REDIRECT_DATA).forEach((trigger, index) => {
+  Object.keys(REDIRECT_DATA).forEach((trigger, index, array) => {
 
     if(debug) console.log("Comparing",p,"and",trigger," INDEX", index);
 
@@ -37,16 +37,16 @@ function checkForRedirect(p) {
         if(debug) console.log("Alias comparing",p,"and",t);
 
         if(p === t){
-          if(debug) console.log("Set redirect to", REDIRECT_DATA[index]);
-          redirect = REDIRECT_DATA[index]
+          if(debug) console.log("Set redirect to", REDIRECT_DATA[array[index]]);
+          redirect = REDIRECT_DATA[array[index]];
         }
 
       });
 
     } else {
       if(p === trigger){
-        if(debug) console.log("Set redirect to", REDIRECT_DATA[index]);
-        redirect = REDIRECT_DATA[index];
+        if(debug) console.log("Set redirect to", REDIRECT_DATA[array[index]]);
+        redirect = REDIRECT_DATA[array[index]];
       }
     }
 
