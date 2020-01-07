@@ -8,8 +8,7 @@ const REDIRECT_DATA = {
 var path = window.location.pathname;
 var debug = false;
 
-if(path.endsWith("?debug")){
-  path = path.substr(0, path.length - "?debug".length);
+if(document.cookie === "DEBUG=true"){
   debug = true;
   console.log("Debug enabled");
 }
@@ -48,7 +47,7 @@ function checkForRedirect(p) {
   });
 
   if(debug) console.log("redirect=",redirect);
-  
+
   if(redirect !== undefined) return redirect;
   else return false;
   
