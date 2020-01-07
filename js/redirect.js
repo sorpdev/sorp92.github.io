@@ -64,6 +64,7 @@ function executeRedirect(path, noRedirectCallback, parameter) {
 
 function redirectToNotFound() {
   console.log("No redirect found for " + path);
+  if(debug) return;
   //Load 404 page
   window.location.href = "/not_found";
 }
