@@ -36,12 +36,18 @@ function checkForRedirect(p) {
 
         if(debug) console.log("Alias comparing",p,"and",t);
 
-        if(p === t) redirect = REDIRECT_DATA[index];
+        if(p === t){
+          if(debug) console.log("Set redirect to", REDIRECT_DATA[index]);
+          redirect = REDIRECT_DATA[index]
+        }
 
       });
 
     } else {
-      if(p === trigger) redirect = REDIRECT_DATA[index];
+      if(p === trigger){
+        if(debug) console.log("Set redirect to", REDIRECT_DATA[index]);
+        redirect = REDIRECT_DATA[index];
+      }
     }
 
   });
