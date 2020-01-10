@@ -5,11 +5,15 @@ const REDIRECT_DATA = {
   "/twitch": "https://www.twitch.tv/sorp"
 };
 
+function debug(message, ...optionalParams){
+  if(debug_mode === true) console.log(message, optionalParams);
+}
+
 var path = window.location.pathname;
-var debug = false;
+var debug_mode = false;
 
 if(document.cookie === "DEBUG=true"){
-  debug = true;
+  debug_mode = true;
   console.log("Debug enabled");
 }
 
@@ -22,11 +26,11 @@ function checkForRedirect(p) {
 
   Object.keys(REDIRECT_DATA).forEach((trigger, index, array) => {
 
-    if(debug) console.log("Comparing",p,"and",trigger," INDEX", index);
+    debug("Comparing",p,"and",trigger," INDEX", index);
 
     if(trigger.includes(",")){
 
-      if(debug) console.log("Doing alias check for",trigger," INDEX", index);
+      debug("Doing alias check for", trigger," INDEX", index);
 
       var triggerSplit = trigger.split(",");
 
@@ -34,10 +38,10 @@ function checkForRedirect(p) {
 
         t = t.trim();
 
-        if(debug) console.log("Alias comparing",p,"and",t);
+        debug("Alias comparing",p,"and",t)
 
         if(p === t){
-          if(debug) console.log("Set redirect to", REDIRECT_DATA[array[index]]);
+          debug("Set redirect to", REDIRECT_DATA[array[index]]);
           redirect = REDIRECT_DATA[array[index]];
         }
 
@@ -45,14 +49,14 @@ function checkForRedirect(p) {
 
     } else {
       if(p === trigger){
-        if(debug) console.log("Set redirect to", REDIRECT_DATA[array[index]]);
+        debug("Set redirect to", REDIRECT_DATA[array[index]]);
         redirect = REDIRECT_DATA[array[index]];
       }
     }
 
   });
 
-  if(debug) console.log("redirect=",redirect);
+  debug("redirect=",redirect);
 
   if(redirect !== undefined) return redirect;
   else return false;
@@ -69,8 +73,8 @@ function executeRedirect(path, noRedirectCallback, parameter) {
 }
 
 function redirectToNotFound() {
-  console.log("No redirect found for " + path);
-  if(debug) return;
+  debug("No redirect found for " + path);
+  if(debug_mode) return;
   //Load 404 page
   window.location.href = "/not_found";
 }
