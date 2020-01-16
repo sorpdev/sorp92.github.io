@@ -9,7 +9,8 @@ jobs:
   updateVersion:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        ref: "experimental"
       - name: Generate favicon
         run: |
           npm install
@@ -19,7 +20,6 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub"
-          git checkout experimental
           git status
           git add favicon.ico
           git commit -m "Updated version in package.json"
