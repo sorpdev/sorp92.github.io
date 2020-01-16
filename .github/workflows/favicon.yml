@@ -15,6 +15,8 @@ jobs:
           npm install
           wget -O favicon.png https://avatars2.githubusercontent.com/u/18190639?s=460&v=4
           node favicon-gen.js
+      - name: Test
+        run: echo ${GITHUB_REF#refs/heads/}
       - name: Git
         run: |
           git config --local user.email "action@github.com"
@@ -22,8 +24,6 @@ jobs:
           git status
           git add favicon.ico
           git commit -m "Updated version in package.json"
-      - name: Test
-        run: echo ${GITHUB_REF#refs/heads/}
       - name: Push favicon
         uses: ad-m/github-push-action@master
         with:
