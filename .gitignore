@@ -4,3 +4,4 @@ _site/
 .jekyll-metadata
 .DS_STORE
 node_modules
+favicon.png
