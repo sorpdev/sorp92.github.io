@@ -52,11 +52,11 @@ if (fs.existsSync("favicon.png")) {
                 });
             }
 
+            console.log("Cleaning up...");
+
+            fs.unlinkSync("old-favicon.ico");
+
         });
-
-        console.log("Cleaning up...");
-
-        fs.unlinkSync("old-favicon.ico");
 
     }).catch(console.error);
 
