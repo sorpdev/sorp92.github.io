@@ -10,8 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: "experimental"
       - name: Generate favicon
         run: |
           npm install
@@ -24,6 +22,8 @@ jobs:
           git status
           git add favicon.ico
           git commit -m "Updated version in package.json"
+      - name: Test
+        run: echo ${GITHUB_REF#refs/heads/}
       - name: Push favicon
         uses: ad-m/github-push-action@master
         with:
