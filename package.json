@@ -1,0 +1,25 @@
+{
+  "name": "sorp92.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "favicon-gen.js",
+  "dependencies": {
+    "png-to-ico": "^2.0.6",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sorp92/sorp92.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sorp92/sorp92.github.io/issues"
+  },
+  "homepage": "https://github.com/sorp92/sorp92.github.io#readme"
+}
