@@ -17,6 +17,7 @@ jobs:
           npm install
           wget -O favicon.png https://avatars2.githubusercontent.com/u/18190639?s=460&v=4
           node favicon-gen.js
+          git status
           git add favicon.ico
           git commit -m "Updated version in package.json"
       - name: Push favicon
