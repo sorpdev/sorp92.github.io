@@ -2,5 +2,5 @@ if (location.protocol != 'https:' && location.hostname != "localhost") location.
 
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.tooltipped');
-    var instances = M.Tooltip.init(elems, {});
+    M.Tooltip.init(elems, {});
 });

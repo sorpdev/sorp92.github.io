@@ -1,36 +1,20 @@
-const REDIRECT_DATA = {
-  "/youtube, /yt": "https://www.youtube.com/channel/UCkxDSg55pwsr7PSAagbz4MA",
-  "/github, /git": "https://github.com/sorp92",
-  "/trakt": "https://trakt.tv/users/sorp",
-  "/twitch": "https://www.twitch.tv/sorp"
-};
+const path = window.location.pathname;
 
-function debug(message, ...optionalParams){
-  if(debug_mode === true) console.log(message, optionalParams);
-}
-
-var path = window.location.pathname;
-var debug_mode = false;
-
-if(document.cookie === "DEBUG=true"){
-  debug_mode = true;
-  console.log("Debug enabled");
-}
+let REDIRECT_DATA;
 
 //Remove / at the end
-if (path.endsWith("/"))
-  path = path.substr(0, path.length - 1);
+if (path.endsWith("/")) path = path.substr(0, path.length - 1);
 
 function checkForRedirect(p) {
   var redirect;
 
   Object.keys(REDIRECT_DATA).forEach((trigger, index, array) => {
 
-    debug("Comparing",p,"and",trigger," INDEX", index);
+    debug("Comparing", p, "and", trigger, " INDEX", index);
 
-    if(trigger.includes(",")){
+    if (trigger.includes(",")) {
 
-      debug("Doing alias check for", trigger," INDEX", index);
+      debug("Doing alias check for", trigger, " INDEX", index);
 
       var triggerSplit = trigger.split(",");
 
@@ -38,9 +22,9 @@ function checkForRedirect(p) {
 
         t = t.trim();
 
-        debug("Alias comparing",p,"and",t)
+        debug("Alias comparing", p, "and", t)
 
-        if(p === t){
+        if (p === t) {
           debug("Set redirect to", REDIRECT_DATA[array[index]]);
           redirect = REDIRECT_DATA[array[index]];
         }
@@ -48,7 +32,7 @@ function checkForRedirect(p) {
       });
 
     } else {
-      if(p === trigger){
+      if (p === trigger) {
         debug("Set redirect to", REDIRECT_DATA[array[index]]);
         redirect = REDIRECT_DATA[array[index]];
       }
@@ -56,11 +40,11 @@ function checkForRedirect(p) {
 
   });
 
-  debug("redirect=",redirect);
+  debug("redirect=", redirect);
 
-  if(redirect !== undefined) return redirect;
+  if (redirect !== undefined) return redirect;
   else return false;
-  
+
 }
 
 function executeRedirect(path, noRedirectCallback, parameter) {
@@ -74,28 +58,37 @@ function executeRedirect(path, noRedirectCallback, parameter) {
 
 function redirectToNotFound() {
   debug("No redirect found for " + path);
-  if(debug_mode) return;
+  if (debug_mode) return;
   //Load 404 page
   window.location.href = "/not_found";
 }
 
-//Check normal
-executeRedirect(path.toLowerCase(), () => {
+//Load redirect data from /data/redirect.json
+$.getJSON("/data/redirect.json", (data) => {
 
-  //Check for /.../...
-  var pathSplit = path.split("/")
-  if (pathSplit.length > 2) {
+  debug("Successfully got redirect data:");
+  console.log(data);
+  REDIRECT_DATA = data;
 
-    var targetPath = "/" + pathSplit[1]; //Should result in /...
-    var preParameter = pathSplit[0].length + pathSplit[1].length + 1;
-    var parameter = path.substr(preParameter, path.length); //Should result in [/...]/...
+  //Execute redirect after recieving the data
+  executeRedirect(path.toLowerCase(), () => {
 
-    executeRedirect(targetPath.toLowerCase(), redirectToNotFound, parameter);
+    //Check for /.../...
+    var pathSplit = path.split("/")
+    if (pathSplit.length > 2) {
 
-  } else {
+      var targetPath = "/" + pathSplit[1]; //Should result in /...
+      var preParameter = pathSplit[0].length + pathSplit[1].length + 1;
+      var parameter = path.substr(preParameter, path.length); //Should result in [/...]/...
 
-    redirectToNotFound();
+      executeRedirect(targetPath.toLowerCase(), redirectToNotFound, parameter);
 
-  }
+    } else {
+
+      redirectToNotFound();
+
+    }
+
+  });
 
 });
