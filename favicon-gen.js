@@ -22,6 +22,10 @@ if(process.argv.length >= 3){
             
             fs.unlinkSync("favicon.png");
 
+            console.log("Stopping application...");
+
+            process.exit();
+
         }).catch(console.error);
 
     });
