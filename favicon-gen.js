@@ -24,29 +24,3 @@ if(fs.existsSync("favicon.png")){
 } else {
     throw Error("Couldn't find favicon.png");
 }
-
-if(process.argv.length >= 3){
-    const target = process.argv[2];
-    console.log("Generating favicon: " + target);
-
-    console.log("Starting download...");
-
-    download.image({ url: target, dest: "favicon.png" }).then(() => {
-
-        console.log("Finished download.");
-
-        console.log("Converting to ico file...");
-    
-        pngToIco("favicon.png").then(buf => {
-            
-            fs.writeFileSync("favicon.ico", buf);
-
-            console.log("Removing old file...");
-            
-            fs.unlinkSync("favicon.png");
-
-        }).catch(console.error);
-
-    }).catch(err => console.error(err));
-
-}
