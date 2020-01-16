@@ -1,0 +1,25 @@
+name: Generate favicon
+
+on: 
+  push:
+    branches:
+      - experimental
+
+jobs:
+  updateVersion:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Generate favicon
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub"
+          npm install
+          node favicon-gen.js https://avatars2.githubusercontent.com/u/18190639?s=460&v=4
+          git add favicon.ico
+          git commit -m "Updated version in package.json"
+      - name: Push favicon
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: "experimental"
