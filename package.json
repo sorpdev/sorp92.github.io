@@ -4,8 +4,7 @@
   "description": "",
   "main": "favicon-gen.js",
   "dependencies": {
-    "png-to-ico": "^2.0.6",
-    "request": "^2.88.0"
+    "png-to-ico": "^2.0.6"
   },
   "devDependencies": {},
   "scripts": {

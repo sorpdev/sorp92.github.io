@@ -1,6 +1,23 @@
 const fs = require("fs");
 const pngToIco = require("png-to-ico");
-const request = require("request");
+
+console.log("Checking for favicon.png...");
+
+if(fs.existsSync("favicon.png")){
+
+    console.log("Converting favicon.png to favicon.ico");
+
+    pngToIco("favicon.png").then(buf => {
+            
+        fs.writeFileSync("favicon.ico", buf);
+
+        console.log("Done.");
+
+    }).catch(console.error);
+
+} else {
+    throw Error("Couldn't find favicon.png");
+}
 
 if(process.argv.length >= 3){
     const target = process.argv[2];
@@ -8,12 +25,12 @@ if(process.argv.length >= 3){
 
     console.log("Starting download...");
 
-    request(target).pipe(fs.createWriteStream("favicon.png")).on("close", () => {
+    download.image({ url: target, dest: "favicon.png" }).then(() => {
 
         console.log("Finished download.");
 
         console.log("Converting to ico file...");
-
+    
         pngToIco("favicon.png").then(buf => {
             
             fs.writeFileSync("favicon.ico", buf);
@@ -22,12 +39,8 @@ if(process.argv.length >= 3){
             
             fs.unlinkSync("favicon.png");
 
-            console.log("Stopping application...");
-
-            process.exit();
-
         }).catch(console.error);
 
-    });
+    }).catch(err => console.error(err));
 
 }

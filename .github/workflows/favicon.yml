@@ -15,7 +15,8 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub"
           npm install
-          node favicon-gen.js https://avatars2.githubusercontent.com/u/18190639?s=460&v=4
+          wget -O favicon.png https://avatars2.githubusercontent.com/u/18190639?s=460&v=4
+          node favicon-gen.js
           git add favicon.ico
           git commit -m "Updated version in package.json"
       - name: Push favicon
