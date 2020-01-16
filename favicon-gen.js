@@ -9,9 +9,15 @@ if(fs.existsSync("favicon.png")){
 
     pngToIco("favicon.png").then(buf => {
             
+        console.log("Removing old favicon.ico...");
+
+        fs.unlinkSync("favicon.ico");
+
+        console.log("Writing new favicon.ico...")
+
         fs.writeFileSync("favicon.ico", buf);
 
-        console.log("Done.");
+        console.log("Done. favicon.ico exists? " + fs.existsSync("favicon.ico"));
 
     }).catch(console.error);
 
