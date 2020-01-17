@@ -30,6 +30,13 @@ function commitChanges() {
     });
 }
 
+function cleanUp() {
+    console.log("Cleaning up...");
+
+    if (fs.existsSync("favicon.png")) fs.unlinkSync("favicon.png");
+    if (fs.existsSync("_favicon.png")) fs.unlinkSync("_favicon.png");
+    if (fs.existsSync("old-favicon.ico")) fs.unlinkSync("old-favicon.ico");
+}
 
 console.log("Checking for favicon.png...");
 
@@ -71,16 +78,13 @@ if (fs.existsSync("favicon.png")) {
                             commitChanges();
                         }
 
+                        cleanUp();
+
                     });
                 } else {
                     commitChanges();
+                    cleanUp();
                 }
-
-                console.log("Cleaning up...");
-
-                if(fs.existsSync("favicon.png")) fs.unlinkSync("favicon.png");
-                if(fs.existsSync("_favicon.png")) fs.unlinkSync("_favicon.png");
-                if(fs.existsSync("old-favicon.ico")) fs.unlinkSync("old-favicon.ico");
 
             }).catch(error => {
                 throw error;
