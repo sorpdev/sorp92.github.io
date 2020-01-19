@@ -1,4 +1,4 @@
-const path = window.location.pathname;
+var path = window.location.pathname;
 
 let REDIRECT_DATA;
 
