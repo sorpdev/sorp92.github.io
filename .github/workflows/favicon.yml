@@ -3,7 +3,7 @@ name: Generate favicon
 on: 
   push:
     branches:
-      - experimental
+      - master
   schedule:
     - cron:  '0 0 * * *'
 
