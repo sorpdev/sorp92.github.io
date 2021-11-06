@@ -45,3 +45,31 @@ body {
     -webkit-filter: drop-shadow(5px 5px 5px #222);
     filter: drop-shadow(5px 5px 5px #222);
 }
+
+.links > img {
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: transform 125ms;
+    border-radius: 30%;
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(5px 5px 5px #222);
+    -webkit-box-sizing: unset;
+    box-sizing: unset;
+}
+
+.links > img:hover {
+    transform: translateY(-5px);
+}
+
+.links {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: rgba(0, 0, 0, 0.425);
+    border-radius: 15px;
+    width: fit-content;
+    text-align: center;
+    border: 3px solid rgba(0, 0, 0, 0.125);
+}
