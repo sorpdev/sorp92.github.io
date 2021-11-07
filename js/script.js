@@ -9,7 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function clickItem() {
   if (this.dataset.href) {
-    window.location.href = this.dataset.href;
+    document.querySelector(
+      ".links"
+    ).innerHTML = `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`;
+    executeRedirect("/" + this.dataset.href, () => {});
   }
 }
 

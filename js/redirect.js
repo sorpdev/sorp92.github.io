@@ -62,18 +62,23 @@ $.getJSON("/data/redirect.json", (data) => {
   console.log(data);
   REDIRECT_DATA = data;
 
-  //Execute redirect after recieving the data
-  executeRedirect(path.toLowerCase(), () => {
-    //Check for /.../...
-    var pathSplit = path.split("/");
-    if (pathSplit.length > 2) {
-      var targetPath = "/" + pathSplit[1]; //Should result in /...
-      var preParameter = pathSplit[0].length + pathSplit[1].length + 1;
-      var parameter = path.substr(preParameter, path.length); //Should result in [/...]/...
+  if (window.location.pathname != "/") {
+    executeRedirect(path.toLowerCase(), () => {
+      //Check for /.../...
+      var pathSplit = path.split("/");
+      if (pathSplit.length > 2) {
+        var targetPath = "/" + pathSplit[1]; //Should result in /...
+        var preParameter = pathSplit[0].length + pathSplit[1].length + 1;
+        var parameter = path.substr(preParameter, path.length); //Should result in [/...]/...
 
-      executeRedirect(targetPath.toLowerCase(), redirectToNotFound, parameter);
-    } else {
-      redirectToNotFound();
-    }
-  });
+        executeRedirect(
+          targetPath.toLowerCase(),
+          redirectToNotFound,
+          parameter
+        );
+      } else {
+        redirectToNotFound();
+      }
+    });
+  }
 });
