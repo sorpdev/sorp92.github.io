@@ -7,11 +7,9 @@ document.addEventListener("DOMContentLoaded", function () {
   M.Tooltip.init(elems, {});
 });
 
-function clickItem() {
+function clickItem(event) {
   if (this.dataset.href) {
-    document.querySelector(
-      ".links"
-    ).innerHTML = `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`;
+    event.target.outerHTML = `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`;
     executeRedirect("/" + this.dataset.href, () => {});
   }
 }
