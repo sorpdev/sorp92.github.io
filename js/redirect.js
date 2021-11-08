@@ -59,7 +59,7 @@ function redirectToNotFound() {
 //Load redirect data from /data/redirect.json
 $.getJSON("/data/redirect.json", (data) => {
   debug("Successfully got redirect data:");
-  console.log(data);
+  debug(data);
   REDIRECT_DATA = data;
 
   if (window.location.pathname != "/") {
