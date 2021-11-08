@@ -9,6 +9,9 @@ const DISCORD_TAG = "Sorp#1337";
 
 window.onresize = responsiveChange;
 
+/*
+  Optimize elements for certain window widths
+*/
 function responsiveChange() {
   var element = document.getElementById("sorp-text");
   //Change text color for better visuality
@@ -37,47 +40,65 @@ function responsiveChange() {
   if (dTag !== null) dTag.style.fontSize = dTagFontSize + "px";
 }
 
-var hasClicked = false;
+var hasClicked = false; //Has the user clicked on a item?
+
+function animationTimeout(dTag) {
+  setTimeout(() => {
+    if (dTag !== null) {
+      dTag.remove();
+      dTagEnabled = false;
+    }
+    hasClicked = false;
+  }, 499);
+}
+
+function hidedTag(dTag) {
+  dTag.style.animation = "none";
+  dTag.offsetLeft;
+  dTag.style.cssText = "animation: 0.5s dtagAnimation; animation-direction: reverse;";
+  animationTimeout(dTag);
+}
 
 function clickItem(event) {
-  if (hasClicked || event.button == 2) return;
-  if(event.button == 0) hasClicked = true;
+  if (hasClicked || event.button == 2) return; //Block if already clicked or using right click
+  if (event.button == 0) hasClicked = true; //Only set clicked if using left click
+  var dTag = document.querySelector(".dtag");
 
-  if (this.dataset.href) {
-    if (event.button == 0) {
-      if (this.dataset.href == "discord") {
-        var dTag = document.querySelector(".dtag");
-
-        if (dTag !== null) {
-          dTag.style.animation = "none";
-          dTag.offsetLeft;
-          dTag.style.cssText = "animation: 0.5s dtagAnimation; animation-direction: reverse;";
-        } else {
-          var child = document.createElement("div");
-          child.classList.add("dtag");
-          child.innerHTML = `<p id="discord-tag">${DISCORD_TAG}</p>`;
-          document.querySelector(".links").appendChild(child);
-          responsiveChange();
-        }
-
-        setTimeout(() => {
-          if (dTag !== null) {
-            dTag.remove();
-            dTagEnabled = false;
-          }
-          hasClicked = false;
-        }, 499);
-
-        return;
+  //Check if left click
+  if (event.button == 0) {
+    //Check if discord item is clicked
+    if (this.dataset.href == "discord") {
+      //Check if dTag is already existing
+      if (dTag !== null) {
+        //Hide dTag
+        hidedTag(dTag);
       } else {
-        event.target.outerHTML = `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`;
+        //Create new dTag
+        var child = document.createElement("div");
+        child.classList.add("dtag");
+        child.innerHTML = `<p id="discord-tag">${DISCORD_TAG}</p>`;
+        document.querySelector(".links").appendChild(child);
+        responsiveChange();
+        animationTimeout(null);
       }
+      return;
+    } else {
+      //Hide discord tag when clicking on a other link
+      if (dTag !== null) {
+        hidedTag(dTag);
+      }
+      //Replace item with loading animation
+      event.target.outerHTML = `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`;
     }
-    executeRedirect("/" + this.dataset.href, () => {}, null, event.button == 1);
   }
+
+  //Redirect user to page
+  executeRedirect("/" + this.dataset.href, () => {}, null, event.button == 1);
 }
 
 document.querySelectorAll(".links > img").forEach((element) => {
-  //element.addEventListener("click", clickItem);
-  element.addEventListener("mousedown", clickItem);
+  //Only add event listener if href is existing
+  if (element.dataset.href) {
+    element.addEventListener("mousedown", clickItem);
+  }
 });
