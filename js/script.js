@@ -34,7 +34,7 @@ function responsiveChange() {
   // factor 3 = 6px
   var dTagFontSize = factor == 1 ? 16 : factor == 2 ? 9 : 6;
   var dTag = document.querySelector("#discord-tag");
-  if (dTag !== undefined) dTag.style.fontSize = dTagFontSize + "px";
+  if (dTag !== null) dTag.style.fontSize = dTagFontSize + "px";
 }
 
 var hasClicked = false;
