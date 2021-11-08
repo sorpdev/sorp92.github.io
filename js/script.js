@@ -3,7 +3,19 @@ if (location.protocol != "https:" && location.hostname != "localhost") location.
 document.addEventListener("DOMContentLoaded", function () {
   var elems = document.querySelectorAll(".tooltipped");
   M.Tooltip.init(elems, {});
+  changeTextColor();
 });
+
+window.onresize = changeTextColor;
+
+function changeTextColor() {
+  var element = document.getElementById("sorp-text");
+  if (window.innerWidth < 1550) {
+    element.style.color = "white";
+  } else {
+    element.style.color = "black";
+  }
+}
 
 var hasClicked = false;
 function clickItem(event) {
