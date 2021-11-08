@@ -7,12 +7,6 @@ if (location.protocol != "https:" && location.hostname != "localhost") location.
 const ICON_SIZE = 64;
 const DISCORD_TAG = "Sorp#1337";
 
-document.addEventListener("DOMContentLoaded", function () {
-  var elems = document.querySelectorAll(".tooltipped");
-  M.Tooltip.init(elems, {});
-  responsiveChange();
-});
-
 window.onresize = responsiveChange;
 
 function responsiveChange() {
@@ -39,7 +33,8 @@ function responsiveChange() {
   // factor 2 = 9px
   // factor 3 = 6px
   var dTagFontSize = factor == 1 ? 16 : factor == 2 ? 9 : 6;
-  document.querySelector("#discord-tag").style.fontSize = dTagFontSize + "px";
+  var dTag = document.querySelector("#discord-tag");
+  if (dTag !== undefined) dTag.style.fontSize = dTagFontSize + "px";
 }
 
 var hasClicked = false;

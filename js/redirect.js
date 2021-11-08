@@ -1,5 +1,6 @@
 ---
 layout: js_minifier
+replace_names: false
 ---
 
 var path = window.location.pathname;
