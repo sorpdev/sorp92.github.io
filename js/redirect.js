@@ -71,11 +71,7 @@ $.getJSON("/data/redirect.json", (data) => {
         var preParameter = pathSplit[0].length + pathSplit[1].length + 1;
         var parameter = path.substr(preParameter, path.length); //Should result in [/...]/...
 
-        executeRedirect(
-          targetPath.toLowerCase(),
-          redirectToNotFound,
-          parameter
-        );
+        executeRedirect(targetPath.toLowerCase(), redirectToNotFound, parameter);
       } else {
         redirectToNotFound();
       }
