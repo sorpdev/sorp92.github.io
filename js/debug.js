@@ -1,3 +1,7 @@
+---
+layout: js_minifier
+---
+
 var debug_mode = false;
 
 /* Debug functions*/

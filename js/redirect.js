@@ -1,3 +1,7 @@
+---
+layout: js_minifier
+---
+
 var path = window.location.pathname;
 
 let REDIRECT_DATA;
