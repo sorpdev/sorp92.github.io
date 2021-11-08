@@ -41,7 +41,7 @@ var hasClicked = false;
 
 function clickItem(event) {
   if (hasClicked || event.button == 2) return;
-  hasClicked = true;
+  if(event.button == 0) hasClicked = true;
 
   if (this.dataset.href) {
     if (event.button == 0) {
