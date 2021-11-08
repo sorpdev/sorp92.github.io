@@ -74,8 +74,17 @@ body {
 }
 
 @keyframes dtagAnimation {
-    0% { transform: translate(-100%, -150%); }
-    100% {transform: translate(-100%, 10%);}
+    0% { 
+        transform: translate(-100%, -150%); 
+        clip-path: inset(100% 0% 0% 0%);
+    }
+    15% {
+        clip-path: inset(100% 0% 0% 0%);
+    }
+    100% {
+        transform: translate(-100%, 10%);
+        clip-path: inset(0% 0% 0% 0%);
+    }
 }
 
 .dtag {
