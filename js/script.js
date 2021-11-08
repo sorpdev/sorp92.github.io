@@ -38,41 +38,38 @@ function responsiveChange() {
 }
 
 var hasClicked = false;
-var dTagEnabled = false;
 
 function clickItem(event) {
   if (hasClicked || event.button == 2) return;
+  hasClicked = true;
 
   if (this.dataset.href) {
     if (event.button == 0) {
       if (this.dataset.href == "discord") {
-        if (dTagEnabled == true && !hasClicked) {
-          hasClicked = true;
-          var dTag = document.querySelector(".dtag");
+        var dTag = document.querySelector(".dtag");
+
+        if (dTag !== null) {
           dTag.style.animation = "none";
           dTag.offsetLeft;
           dTag.style.cssText = "animation: 0.5s dtagAnimation; animation-direction: reverse;";
-          setTimeout(() => {
-            dTag.remove();
-            dTagEnabled = false;
-            hasClicked = false;
-          }, 499);
         } else {
-          hasClicked = true;
-          dTagEnabled = true;
           var child = document.createElement("div");
           child.classList.add("dtag");
           child.innerHTML = `<p id="discord-tag">${DISCORD_TAG}</p>`;
           document.querySelector(".links").appendChild(child);
           responsiveChange();
-          setTimeout(() => {
-            hasClicked = false;
-          }, 499);
         }
+
+        setTimeout(() => {
+          if (dTag !== null) {
+            dTag.remove();
+            dTagEnabled = false;
+          }
+          hasClicked = false;
+        }, 499);
 
         return;
       } else {
-        hasClicked = true;
         event.target.outerHTML = `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`;
       }
     }
