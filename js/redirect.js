@@ -40,10 +40,15 @@ function checkForRedirect(p) {
   else return false;
 }
 
-function executeRedirect(path, noRedirectCallback, parameter) {
+function executeRedirect(path, noRedirectCallback, parameter, newtab) {
   var redirect = checkForRedirect(path);
   if (redirect) {
-    window.location.href = redirect + (parameter ? parameter : "");
+    var url = redirect + (parameter ? parameter : "");
+    if (newtab !== undefined && newtab == true) {
+      open(url);
+    } else {
+      window.location.href = url;
+    }
   } else {
     noRedirectCallback();
   }

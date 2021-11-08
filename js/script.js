@@ -19,15 +19,18 @@ function changeTextColor() {
 
 var hasClicked = false;
 function clickItem(event) {
-  if (hasClicked) return;
+  if (hasClicked || event.button == 2) return;
 
   if (this.dataset.href) {
-    hasClicked = true;
-    event.target.outerHTML = `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`;
-    executeRedirect("/" + this.dataset.href, () => {}, null);
+    if (event.button == 0) {
+      hasClicked = true;
+      event.target.outerHTML = `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`;
+    }
+    executeRedirect("/" + this.dataset.href, () => {}, null, event.button == 1);
   }
 }
 
 document.querySelectorAll(".links > img").forEach((element) => {
-  element.addEventListener("click", clickItem);
+  //element.addEventListener("click", clickItem);
+  element.addEventListener("mousedown", clickItem);
 });
