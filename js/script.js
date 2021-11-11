@@ -7,6 +7,7 @@ if (location.protocol != "https:" && location.hostname != "localhost") location.
 const ICON_SIZE = 64;
 const DISCORD_TAG = "Sorp#1337";
 
+window.onload = responsiveChange;
 window.onresize = responsiveChange;
 
 /*
