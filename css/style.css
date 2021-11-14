@@ -52,6 +52,23 @@ h3 {
     transition: all 0.35s;
 }
 
+@keyframes bounceAnimation {
+    
+    0% { transform:translateY(0px); }
+    15% { transform:translateY(0px); }
+    50% { transform: translateY(-45px);  }
+    55% { transform: translateY(-45px);  }
+    85% { transform: translateY(0px); }
+    100% { transform: translateY(0px); }
+
+}
+
+.bounce {
+    animation: 0.75s bounceAnimation ease-in-out;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+
 .link:hover {
     transform: translateY(-5px);
 }

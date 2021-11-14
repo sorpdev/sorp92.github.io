@@ -1,5 +1,6 @@
 ---
 layout: js_minifier
+replace_names: false
 ---
 
 if (location.protocol != "https:" && location.hostname != "localhost") location.href = "https:" + window.location.href.substring(window.location.protocol.length);
@@ -88,8 +89,9 @@ function clickItem(event) {
       if (dTag !== null) {
         hidedTag(dTag);
       }
-      //Replace item with loading animation
-      event.target.outerHTML = `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`;
+      
+      //Play bounce animation
+      event.target.classList.add("bounce");
     }
   }
 
