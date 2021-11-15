@@ -49,6 +49,7 @@ function executeRedirect(path, noRedirectCallback, parameter, newtab) {
   var redirect = checkForRedirect(path);
   if (redirect) {
     var url = redirect + (parameter ? parameter : "");
+    if(checkParameter("NO_REDIRECT")) return;
     if (newtab !== undefined && newtab == true) {
       open(url);
     } else {
