@@ -1,8 +1,3 @@
----
-layout: js_minifier
-replace_names: false
----
-
 var secretImage = false;
 
 if (location.protocol != "https:" && location.hostname != "localhost") location.href = "https:" + window.location.href.substring(window.location.protocol.length);
@@ -31,7 +26,7 @@ function responsiveChange() {
   // width < 306 = / 4
   var factor = window.innerWidth < 434 ? (window.innerWidth < 306 ? 4 : 2) : 1;
   document.querySelectorAll("img").forEach((img) => {
-    if(img.dataset.href){
+    if (img.dataset.href) {
       img.width = ICON_SIZE / factor;
       img.height = ICON_SIZE / factor;
     }
@@ -188,7 +183,7 @@ document.querySelectorAll(".sorp").forEach((element) => {
   });
 });
 
-if(checkParameter("projects")){
+if (checkParameter("projects")) {
   window.history.pushState({}, document.title, "/");
   loadProjects();
 }

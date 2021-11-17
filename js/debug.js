@@ -1,37 +1,30 @@
----
-layout: js_minifier
-replace_names: false
----
-
 var debug_mode = false;
 
-function checkParameter(...parameters){
+function checkParameter(...parameters) {
   var foundAmount = 0;
   var search = location.search;
 
-  if(search != ""){
-    if(search.startsWith("?")){
-
+  if (search != "") {
+    if (search.startsWith("?")) {
       //Remove ? at the beginning
       search = search.substr(1);
 
       var searchArray = [];
-      if(search.includes("&")){
+      if (search.includes("&")) {
         searchArray = search.split("&");
       } else {
-        searchArray = [ search ];
+        searchArray = [search];
       }
 
       parameters.forEach((param) => {
-        if(searchArray.includes(param)){
+        if (searchArray.includes(param)) {
           foundAmount++;
         }
       });
-
     }
   }
 
-  return (foundAmount == parameters.length);
+  return foundAmount == parameters.length;
 }
 
 /* Debug functions*/

@@ -1,8 +1,3 @@
----
-layout: js_minifier
-replace_names: false
----
-
 var path = window.location.pathname;
 
 let REDIRECT_DATA;
@@ -49,7 +44,7 @@ function executeRedirect(path, noRedirectCallback, parameter, newtab) {
   var redirect = checkForRedirect(path);
   if (redirect) {
     var url = redirect + (parameter ? parameter : "");
-    if(checkParameter("NO_REDIRECT")) return;
+    if (checkParameter("NO_REDIRECT")) return;
     if (newtab !== undefined && newtab == true) {
       open(url);
     } else {
