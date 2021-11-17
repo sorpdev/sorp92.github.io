@@ -19,7 +19,7 @@ h3 {
 
 .sorp {
     position: relative;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     background-size: 100% 100%;
     top: 3%;
     background-image: url('https://avatars2.githubusercontent.com/u/18190639?s=460&v=4');
@@ -33,17 +33,17 @@ h3 {
 
 @keyframes float {
     0% {
-        box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        /* box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6); */
         transform: translatey(0px);
     }
 
     50% {
-        box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2);
+        /* box-shadow: 0 25px 15px 0px rgba(0, 0, 0, 0.2); */
         transform: translatey(-5px);
     }
 
     100% {
-        box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+        /* box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6); */
         transform: translatey(0px);
     }
 }
