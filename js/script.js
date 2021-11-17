@@ -3,6 +3,8 @@ layout: js_minifier
 replace_names: false
 ---
 
+var secretImage = false;
+
 if (location.protocol != "https:" && location.hostname != "localhost") location.href = "https:" + window.location.href.substring(window.location.protocol.length);
 
 const ICON_SIZE = 64;
@@ -17,7 +19,7 @@ window.onresize = responsiveChange;
 function responsiveChange() {
   var element = document.getElementById("sorp-text");
   //Change text color for better visuality
-  if (window.innerWidth < 1550) {
+  if (window.innerWidth < 1550 || document.querySelector(".button") == undefined) {
     element.style.color = "white";
   } else {
     element.style.color = "black";
@@ -29,8 +31,10 @@ function responsiveChange() {
   // width < 306 = / 4
   var factor = window.innerWidth < 434 ? (window.innerWidth < 306 ? 4 : 2) : 1;
   document.querySelectorAll("img").forEach((img) => {
-    img.width = ICON_SIZE / factor;
-    img.height = ICON_SIZE / factor;
+    if(img.dataset.href){
+      img.width = ICON_SIZE / factor;
+      img.height = ICON_SIZE / factor;
+    }
   });
 
   //Change discord tag size
@@ -40,6 +44,23 @@ function responsiveChange() {
   var dTagFontSize = factor == 1 ? 16 : factor == 2 ? 9 : 6;
   var dTag = document.querySelector("#discord-tag");
   if (dTag !== null) dTag.style.fontSize = dTagFontSize + "px";
+
+  //Disable projects for phone devies
+  if (window.innerWidth < 700) {
+    document.querySelectorAll(".button").forEach((button) => {
+      button.style = `display:none`;
+    });
+  } else {
+    //Change buttons size
+    var factor = 1920 / window.innerWidth;
+    if (window.innerWidth < 390) {
+      factor *= 0.95;
+    }
+    document.querySelectorAll(".button").forEach((button) => {
+      var right = window.innerWidth < 390 ? `; right:${window.innerWidth > 368 ? "0" : "-10"}%` : "";
+      button.style = `width: ${10 * factor}%${right}`;
+    });
+  }
 }
 
 var hasClicked = false; //Has the user clicked on a item?
@@ -89,7 +110,7 @@ function clickItem(event) {
       if (dTag !== null) {
         hidedTag(dTag);
       }
-      
+
       //Play bounce animation
       event.target.classList.add("bounce");
     }
@@ -99,9 +120,66 @@ function clickItem(event) {
   executeRedirect("/" + this.dataset.href, () => {}, null, event.button == 1);
 }
 
+function clickButton(event) {
+  if (event.button != 0) return;
+
+  var a = event.target.parentNode.parentNode;
+  if (!a.dataset.button) {
+    a = event.target.parentNode;
+    if (!a.dataset.button) return;
+  }
+
+  var action = a.dataset.button;
+  if (action == "projects") {
+    //Load content
+    $("#content").load("/data/content.html", () => {
+      document.querySelector("#content").style = "";
+      document.querySelectorAll(".content").forEach((element) => {
+        element.style = "transform: scale(0,0)";
+      });
+    });
+
+    document.querySelector("#pContent").style = "animation: GoAwayAll 1s";
+    document.querySelector(".button").style = "animation: GoAway 1s";
+    setTimeout(() => {
+      document.querySelector(".button").remove();
+      document.querySelector(".links").style = "bottom: 10%; animation: ComeHere 1.5s";
+      document.querySelector("#sorp-text").style = "color: white; position: relative; top: 95%";
+      document.querySelector(".sorp").appendChild(document.querySelector("#sorp-text"));
+      document.querySelector(".sorp").style =
+        "position: fixed; margin-left: -50px; margin-top: -65px; transform: scale(0.5, 0.5); animation: GoToSide2 1.5s;" +
+        (secretImage ? " background-image: url('img/sorpdev.png')" : "");
+
+      setTimeout(() => {
+        var index = 0;
+        document.querySelectorAll(".content").forEach((element) => {
+          element.style = "transform: scale(0,0)";
+          setTimeout(() => {
+            element.style = "animation: contentAnimation 1s";
+          }, index * 250);
+          index++;
+        });
+      }, 1500);
+    }, 999);
+  }
+}
+
 document.querySelectorAll(".links > img").forEach((element) => {
   //Only add event listener if href is existing
   if (element.dataset.href) {
     element.addEventListener("mousedown", clickItem);
   }
+});
+
+document.querySelectorAll("a").forEach((element) => {
+  element.addEventListener("mousedown", clickButton);
+});
+
+document.querySelectorAll(".sorp").forEach((element) => {
+  element.addEventListener("mousedown", (event) => {
+    if (event.button == 0 && !secretImage) {
+      secretImage = true;
+      event.target.style = (event.target.style.cssText != "" ? event.target.style.cssText + "; " : "") + "background-image: url('img/sorpdev.png')";
+    }
+  });
 });
