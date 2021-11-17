@@ -120,6 +120,38 @@ function clickItem(event) {
   executeRedirect("/" + this.dataset.href, () => {}, null, event.button == 1);
 }
 
+function loadProjects() {
+  $("#content").load("/data/content.html", () => {
+    document.querySelector("#content").style = "";
+    document.querySelectorAll(".content").forEach((element) => {
+      element.style = "transform: scale(0,0)";
+    });
+  });
+
+  document.querySelector("#pContent").style = "animation: GoAwayAll 1s";
+  document.querySelector(".button").style = "animation: GoAway 1s";
+  setTimeout(() => {
+    document.querySelector(".button").remove();
+    document.querySelector(".links").style = "bottom: 10%; animation: ComeHere 1.5s";
+    document.querySelector("#sorp-text").style = "color: white; position: relative; top: 95%";
+    document.querySelector(".sorp").appendChild(document.querySelector("#sorp-text"));
+    document.querySelector(".sorp").style =
+      "position: fixed; margin-left: -50px; margin-top: -65px; transform: scale(0.5, 0.5); animation: GoToSide2 1.5s;" +
+      (secretImage ? " background-image: url('img/sorpdev.png')" : "");
+
+    setTimeout(() => {
+      var index = 0;
+      document.querySelectorAll(".content").forEach((element) => {
+        element.style = "transform: scale(0,0)";
+        setTimeout(() => {
+          element.style = "animation: contentAnimation 1s";
+        }, index * 250);
+        index++;
+      });
+    }, 1500);
+  }, 999);
+}
+
 function clickButton(event) {
   if (event.button != 0) return;
 
@@ -132,35 +164,7 @@ function clickButton(event) {
   var action = a.dataset.button;
   if (action == "projects") {
     //Load content
-    $("#content").load("/data/content.html", () => {
-      document.querySelector("#content").style = "";
-      document.querySelectorAll(".content").forEach((element) => {
-        element.style = "transform: scale(0,0)";
-      });
-    });
-
-    document.querySelector("#pContent").style = "animation: GoAwayAll 1s";
-    document.querySelector(".button").style = "animation: GoAway 1s";
-    setTimeout(() => {
-      document.querySelector(".button").remove();
-      document.querySelector(".links").style = "bottom: 10%; animation: ComeHere 1.5s";
-      document.querySelector("#sorp-text").style = "color: white; position: relative; top: 95%";
-      document.querySelector(".sorp").appendChild(document.querySelector("#sorp-text"));
-      document.querySelector(".sorp").style =
-        "position: fixed; margin-left: -50px; margin-top: -65px; transform: scale(0.5, 0.5); animation: GoToSide2 1.5s;" +
-        (secretImage ? " background-image: url('img/sorpdev.png')" : "");
-
-      setTimeout(() => {
-        var index = 0;
-        document.querySelectorAll(".content").forEach((element) => {
-          element.style = "transform: scale(0,0)";
-          setTimeout(() => {
-            element.style = "animation: contentAnimation 1s";
-          }, index * 250);
-          index++;
-        });
-      }, 1500);
-    }, 999);
+    loadProjects();
   }
 }
 
@@ -183,3 +187,8 @@ document.querySelectorAll(".sorp").forEach((element) => {
     }
   });
 });
+
+if(checkParameter("projects")){
+  window.history.pushState({}, document.title, "/");
+  loadProjects();
+}

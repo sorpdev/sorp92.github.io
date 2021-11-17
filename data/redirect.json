@@ -4,5 +4,6 @@
     "/trakt": "https://trakt.tv/users/sorp",
     "/twitch": "https://www.twitch.tv/sorp",
     "/twitter": "https://twitter.com/sorpdev",
-    "/betulbot, /bb": "https://github.com/BetulBot/BetulBot"
+    "/betulbot, /bb": "https://github.com/BetulBot/BetulBot",
+    "/projects": "/?projects"
 }
