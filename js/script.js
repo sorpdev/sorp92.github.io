@@ -1,5 +1,3 @@
-var secretImage = false;
-
 if (location.protocol != "https:" && location.hostname != "localhost") location.href = "https:" + window.location.href.substring(window.location.protocol.length);
 
 const ICON_SIZE = 64;
@@ -130,9 +128,7 @@ function loadProjects() {
     document.querySelector(".links").style = "bottom: 10%; animation: ComeHere 1.5s";
     document.querySelector("#sorp-text").style = "color: white; position: relative; top: 95%";
     document.querySelector(".sorp").appendChild(document.querySelector("#sorp-text"));
-    document.querySelector(".sorp").style =
-      "position: fixed; margin-left: -50px; margin-top: -65px; transform: scale(0.5, 0.5); animation: GoToSide2 1.5s;" +
-      (secretImage ? " background-image: url('img/sorpdev.png')" : "");
+    document.querySelector(".sorp").style = "position: fixed; margin-left: -50px; margin-top: -65px; transform: scale(0.5, 0.5); animation: GoToSide2 1.5s;";
 
     setTimeout(() => {
       var index = 0;
@@ -172,15 +168,6 @@ document.querySelectorAll(".links > img").forEach((element) => {
 
 document.querySelectorAll("a").forEach((element) => {
   element.addEventListener("mousedown", clickButton);
-});
-
-document.querySelectorAll(".sorp").forEach((element) => {
-  element.addEventListener("mousedown", (event) => {
-    if (event.button == 0 && !secretImage) {
-      secretImage = true;
-      event.target.style = (event.target.style.cssText != "" ? event.target.style.cssText + "; " : "") + "background-image: url('img/sorpdev.png')";
-    }
-  });
 });
 
 if (checkParameter("projects")) {
