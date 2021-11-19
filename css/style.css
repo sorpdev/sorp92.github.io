@@ -58,6 +58,14 @@ h3 {
   transition: all 0.35s;
 }
 
+.project-image {
+  transition: transform 125ms;
+}
+
+.project-image:hover {
+  transform: translateY(-5px);
+}
+
 @keyframes bounceAnimation {
   0% {
     transform: translateY(0px);
