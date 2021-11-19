@@ -503,12 +503,36 @@ p {
 
 /* Phone */
 @media only screen and (max-width: 434px) {
+  .sorpProjects {
+    margin-top: -45px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -30px;
+    position: relative;
+    transform: translate(-50%) scale(0.5, 0.5);
+  }
+  .sorp > #sorp-text {
+    font-size: 68px;
+    position: absolute;
+    top: 25%;
+    left: 100%;
+    color: white;
+  }
+  @keyframes showSorp {
+    0% {
+      transform: translate(-200%, 0) scale(0.1, 0.1);
+    }
+    100% {
+      transform: translate(-50%, 0) scale(0.5, 0.5);
+    }
+  }
   .container {
     padding-left: 0px;
     padding-right: 0px;
     margin-left: 0px;
     margin-right: 0px;
     width: 100%;
+    margin-top: 0px;
   }
   .container > div {
     grid-template-rows: unset;
