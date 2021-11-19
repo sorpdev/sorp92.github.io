@@ -85,6 +85,11 @@ function clickItem(event) {
 
       //Play bounce animation
       event.target.classList.add("bounce");
+      //Revert click after 4 seconds to prevent infinite bouncing when going back to the page
+      setTimeout(() => {
+        hasClicked = false;
+        event.target.classList.remove("bounce");
+      }, 4000);
     }
   }
 
@@ -195,3 +200,8 @@ $(".sorp-hover").click(() => {
     transition: "background 0.5s linear"
   });
 });
+
+if (checkParameter("projects")) {
+  window.history.pushState({}, document.title, "/");
+  loadProjects();
+}
