@@ -426,6 +426,9 @@ p {
 
 /* Laptop */
 @media only screen and (max-width: 1280px) {
+  .container {
+    height: 70vh;
+  }
   .container > div > .project-image {
     grid-row-start: 1;
     grid-row-end: 1;
@@ -444,6 +447,7 @@ p {
     grid-row-end: 2;
     grid-column-start: 1;
     grid-column-end: 3;
+    border-left: unset;
   }
   .container > div > .content-links {
     grid-row-start: 2;
