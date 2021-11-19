@@ -187,3 +187,11 @@ $(".sorp-hover").hover(
     });
   }
 );
+
+/* Click shrug animation */
+$(".sorp-hover").click(() => {
+  $(".sorp").css({
+    "background-image": "url('/img/avatar3.png')",
+    transition: "background 0.5s linear"
+  });
+});
