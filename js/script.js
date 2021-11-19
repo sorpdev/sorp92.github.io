@@ -1,5 +1,6 @@
 if (location.protocol != "https:" && location.hostname != "localhost") location.href = "https:" + window.location.href.substring(window.location.protocol.length);
 
+var hasClicked = false; //Has the user clicked on a item?
 const ICON_SIZE = 64;
 const DISCORD_TAG = "Sorp#1337";
 
@@ -11,6 +12,7 @@ window.onresize = responsiveChange;
 */
 function responsiveChange() {
   var element = document.getElementById("sorp-text");
+
   //Change text color for better visuality
   if (window.innerWidth < 1550 || document.querySelector(".button") == undefined) {
     element.style.color = "white";
@@ -18,10 +20,6 @@ function responsiveChange() {
     element.style.color = "black";
   }
 
-  //Change size of icons
-  // width > 325 = 1
-  // width < 434 = / 2
-  // width < 306 = / 4
   var factor = window.innerWidth < 434 ? (window.innerWidth < 306 ? 4 : 2) : 1;
   document.querySelectorAll("img").forEach((img) => {
     if (img.dataset.href) {
@@ -37,26 +35,7 @@ function responsiveChange() {
   var dTagFontSize = factor == 1 ? 16 : factor == 2 ? 9 : 6;
   var dTag = document.querySelector("#discord-tag");
   if (dTag !== null) dTag.style.fontSize = dTagFontSize + "px";
-
-  //Disable projects for phone devies
-  if (window.innerWidth < 700) {
-    document.querySelectorAll(".button").forEach((button) => {
-      button.style = `display:none`;
-    });
-  } else {
-    //Change buttons size
-    var factor = 1920 / window.innerWidth;
-    if (window.innerWidth < 390) {
-      factor *= 0.95;
-    }
-    document.querySelectorAll(".button").forEach((button) => {
-      var right = window.innerWidth < 390 ? `; right:${window.innerWidth > 368 ? "0" : "-10"}%` : "";
-      button.style = `width: ${10 * factor}%${right}`;
-    });
-  }
 }
-
-var hasClicked = false; //Has the user clicked on a item?
 
 function animationTimeout(dTag) {
   setTimeout(() => {
@@ -114,32 +93,55 @@ function clickItem(event) {
 }
 
 function loadProjects() {
-  $("#content").load("/data/content.html", () => {
-    document.querySelector("#content").style = "";
-    document.querySelectorAll(".content").forEach((element) => {
-      element.style = "transform: scale(0,0)";
+  //Load content
+  $(".container").load("/data/content.html", () => {
+    //Show container
+    $(".container").css({
+      display: "none"
     });
+    //Hide content
+    for (var i = 0; i < $(".container").children().length; i++) {
+      $($(".container").children()[i]).css("transform", "scale(0,0)");
+    }
   });
 
-  document.querySelector("#pContent").style = "animation: GoAwayAll 1s";
-  document.querySelector(".button").style = "animation: GoAway 1s";
+  //Play animations
+  $(".button").css("animation", "scaleDown50 1s");
+  $("#pContent").css("animation", "scaleDown0 1s");
+  $(".links").css("animation", "scaleDown50 1s");
   setTimeout(() => {
-    document.querySelector(".button").remove();
-    document.querySelector(".links").style = "bottom: 10%; animation: ComeHere 1.5s";
-    document.querySelector("#sorp-text").style = "color: white; position: relative; top: 95%";
-    document.querySelector(".sorp").appendChild(document.querySelector("#sorp-text"));
-    document.querySelector(".sorp").style = "position: fixed; margin-left: -50px; margin-top: -65px; transform: scale(0.5, 0.5); animation: GoToSide2 1.5s;";
+    $(".container").css({
+      display: "grid",
+      transform: "scale(0,0)"
+    });
+    //Destroy projects button
+    $(".button").parent()[0].remove();
+    //Show links
+    $(".links").css({
+      animation: "displayLinks 1.5s"
+    });
+    //Set options for sorp
+    $(".sorp").css("animation", "showSorp 1.5s");
+    $(".sorp").addClass("sorpProjects");
+    $("#sorp-text").appendTo(".sorp");
+    $("#sorp-text").css("color", "white");
 
+    //Start showing container
     setTimeout(() => {
-      var index = 0;
-      document.querySelectorAll(".content").forEach((element) => {
-        element.style = "transform: scale(0,0)";
-        setTimeout(() => {
-          element.style = "animation: contentAnimation 1s";
-        }, index * 250);
-        index++;
+      $(".container").css({
+        animation: "show0 1s",
+        transform: "scale(1,1)"
       });
-    }, 1500);
+      //Start showing content
+      setTimeout(() => {
+        for (var i = 0; i < $(".container").children().length; i++) {
+          $($(".container").children()[i]).css({
+            animation: `showContent ${i + 1}s`,
+            transform: "scale(1,1)"
+          });
+        }
+      }, 999);
+    }, 999);
   }, 999);
 }
 
@@ -170,7 +172,18 @@ document.querySelectorAll("a").forEach((element) => {
   element.addEventListener("mousedown", clickButton);
 });
 
-if (checkParameter("projects")) {
-  window.history.pushState({}, document.title, "/");
-  loadProjects();
-}
+/* Hover wave animation */
+$(".sorp-hover").hover(
+  () => {
+    $(".sorp").css({
+      "background-image": "url('/img/avatar2.png')",
+      transition: "background 0.5s linear"
+    });
+  },
+  () => {
+    $(".sorp").css({
+      "background-image": "url('/img/avatar.png')",
+      transition: "background 0.5s linear"
+    });
+  }
+);
