@@ -62,8 +62,8 @@ function redirectToNotFound() {
   window.location.href = "/";
 }
 
-//Load redirect data from /data/redirect.json
-$.getJSON("/data/redirect.json", (data) => {
+//Load redirect data from /page-data/redirect.json
+$.getJSON("/page-data/redirect.json", (data) => {
   debug("Successfully got redirect data:");
   debug(data);
   REDIRECT_DATA = data;
