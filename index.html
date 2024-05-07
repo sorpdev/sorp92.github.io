@@ -15,37 +15,53 @@
   <link rel="preload" href="/img/avatar.png" as="image" />
   <link rel="preload" href="/img/avatar2.png" as="image" />
   <link rel="preload" href="/img/avatar3.png" as="image" />
-  <link rel="me" href="https://mastodon.social/@sorpdev">Mastodon</a>
+  <link rel="me" href="https://mastodon.social/@sorpdev"></a>
 </head>
 
+<style>
+  html,
+  body {
+    height: 100%;
+  }
+
+  html {
+    display: table;
+    margin: auto;
+  }
+
+  body {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  @font-face {
+    font-family: f;
+    src: url("font.otf");
+  }
+
+  * {
+    font-size: x-large;
+  }
+
+  #sorp {
+    font-family: f;
+    font-size: xxx-large;
+  }
+
+  a,
+  a:visited {
+    text-decoration: none;
+    color: blue;
+  }
+</style>
+
 <body>
-
-  <div id="pContent">
-    <div class="row sorp slowfloatanimation">
-      <div class="sorp-hover"></div>
-    </div>
-    <h3 id="sorp-text">Sorp</h3>
-  </div>
-
-  <div class="container" style="display: none"></div>
-
-  <div class="row">
-    <div class="links">
-      <img data-href="youtube" src="img/youtube.svg" width="64px" height="64px" />
-      <img data-href="discord" src="img/discord.png" width="64px" height="64px" />
-      <img data-href="twitter" src="img/twitter.svg" width="64px" height="64px" />
-      <img data-href="github" src="img/github.png" width="64px" height="64px" />
-    </div>
-  </div>
-
-  <a data-button="projects" href="projects" onclick="event.preventDefault()">
-    <div class="button">
-      <h2>Projects</h2>
-    </div>
-  </a>
-
-  <script type="text/javascript" src="/js/redirect.js"></script>
-  <script type="text/javascript" src="/js/script.js"></script>
+  <span id="sorp">sorps website</span><br>
+  <a href="https://github.com/sorpdev" target="_self">---github</a>
+  <a href="https://github.com/sorpdev" target="_self">------</a>
+  <a href="https://github.com/sorpdev" target="_self">github</a>
+  <a href="https://github.com/sorpdev" target="_self">------</a>
+  <a href="https://github.com/sorpdev" target="_self">github---</a>
 </body>
 
 </html>
