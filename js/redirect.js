@@ -63,7 +63,7 @@ function redirectToNotFound() {
 }
 
 //Load redirect data from /page-data/redirect.json
-$.getJSON("/page-data/redirect.json", (data) => {
+$.getJSON("https://sorpdev.github.io/page-data/redirect.json", (data) => {
   debug("Successfully got redirect data:");
   debug(data);
   REDIRECT_DATA = data;
