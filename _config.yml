@@ -12,6 +12,6 @@ exclude:
     ".gitignore",
     "CNAME",
     "scripts",
-    "run.sh",
+    "*.sh",
     "README.md"
   ]
