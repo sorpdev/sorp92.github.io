@@ -1,15 +1,15 @@
-var debug_mode = false;
+let debug_mode = false;
 
 function checkParameter(...parameters) {
-  var foundAmount = 0;
-  var search = location.search;
+  let foundAmount = 0;
+  let search = location.search;
 
   if (search != "") {
     if (search.startsWith("?")) {
       //Remove ? at the beginning
       search = search.substr(1);
 
-      var searchArray = [];
+      let searchArray = [];
       if (search.includes("&")) {
         searchArray = search.split("&");
       } else {

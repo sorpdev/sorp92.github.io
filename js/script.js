@@ -1,6 +1,6 @@
 if (location.protocol != "https:" && location.hostname != "localhost") location.href = "https:" + window.location.href.substring(window.location.protocol.length);
 
-var hasClicked = false; //Has the user clicked on a item?
+let hasClicked = false; //Has the user clicked on a item?
 const ICON_SIZE = 64;
 const DISCORD_TAG = "Sorp#1337";
 
@@ -11,7 +11,7 @@ window.onresize = responsiveChange;
   Optimize elements for certain window widths
 */
 function responsiveChange() {
-  var element = document.getElementById("sorp-text");
+  let element = document.getElementById("sorp-text");
 
   //Change text color for better visuality
   if (window.innerWidth < 1550 || document.querySelector(".button") == undefined) {
@@ -20,7 +20,7 @@ function responsiveChange() {
     element.style.color = "black";
   }
 
-  var factor = window.innerWidth < 434 ? (window.innerWidth < 306 ? 4 : 2) : 1;
+  let factor = window.innerWidth < 434 ? (window.innerWidth < 306 ? 4 : 2) : 1;
   document.querySelectorAll("img").forEach((img) => {
     if (img.dataset.href) {
       img.width = ICON_SIZE / factor;
@@ -32,8 +32,8 @@ function responsiveChange() {
   // factor 1 = 16px
   // factor 2 = 9px
   // factor 3 = 6px
-  var dTagFontSize = factor == 1 ? 16 : factor == 2 ? 9 : 6;
-  var dTag = document.querySelector("#discord-tag");
+  let dTagFontSize = factor == 1 ? 16 : factor == 2 ? 9 : 6;
+  let dTag = document.querySelector("#discord-tag");
   if (dTag !== null) dTag.style.fontSize = dTagFontSize + "px";
 }
 
@@ -57,7 +57,7 @@ function hidedTag(dTag) {
 function clickItem(event) {
   if (hasClicked || event.button == 2) return; //Block if already clicked or using right click
   if (event.button == 0) hasClicked = true; //Only set clicked if using left click
-  var dTag = document.querySelector(".dtag");
+  let dTag = document.querySelector(".dtag");
 
   //Check if left click
   if (event.button == 0) {
@@ -69,7 +69,7 @@ function clickItem(event) {
         hidedTag(dTag);
       } else {
         //Create new dTag
-        var child = document.createElement("div");
+        let child = document.createElement("div");
         child.classList.add("dtag");
         child.innerHTML = `<p id="discord-tag">${DISCORD_TAG}</p>`;
         document.querySelector(".links").appendChild(child);
@@ -105,7 +105,7 @@ function loadProjects() {
       display: "none"
     });
     //Hide content
-    for (var i = 0; i < $(".container").children().length; i++) {
+    for (let i = 0; i < $(".container").children().length; i++) {
       $($(".container").children()[i]).css("transform", "scale(0,0)");
     }
   });
@@ -139,7 +139,7 @@ function loadProjects() {
       });
       //Start showing content
       setTimeout(() => {
-        for (var i = 0; i < $(".container").children().length; i++) {
+        for (let i = 0; i < $(".container").children().length; i++) {
           $($(".container").children()[i]).css({
             animation: `showContent ${i + 1}s`,
             transform: "scale(1,1)"
@@ -153,13 +153,13 @@ function loadProjects() {
 function clickButton(event) {
   if (event.button != 0) return;
 
-  var a = event.target.parentNode.parentNode;
+  let a = event.target.parentNode.parentNode;
   if (!a.dataset.button) {
     a = event.target.parentNode;
     if (!a.dataset.button) return;
   }
 
-  var action = a.dataset.button;
+  let action = a.dataset.button;
   if (action == "projects") {
     //Load content
     loadProjects();

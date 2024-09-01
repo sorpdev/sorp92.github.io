@@ -1,4 +1,4 @@
-var path = window.location.pathname;
+let path = window.location.pathname;
 
 let REDIRECT_DATA;
 
@@ -6,7 +6,7 @@ let REDIRECT_DATA;
 if (path.endsWith("/")) path = path.substr(0, path.length - 1);
 
 function checkForRedirect(p) {
-  var redirect;
+  let redirect;
 
   Object.keys(REDIRECT_DATA).forEach((trigger, index, array) => {
     debug("Comparing", p, "and", trigger, " INDEX", index);
@@ -14,7 +14,7 @@ function checkForRedirect(p) {
     if (trigger.includes(",")) {
       debug("Doing alias check for", trigger, " INDEX", index);
 
-      var triggerSplit = trigger.split(",");
+      let triggerSplit = trigger.split(",");
 
       triggerSplit.forEach((t) => {
         t = t.trim();
@@ -41,9 +41,9 @@ function checkForRedirect(p) {
 }
 
 function executeRedirect(path, noRedirectCallback, parameter, newtab) {
-  var redirect = checkForRedirect(path);
+  let redirect = checkForRedirect(path);
   if (redirect) {
-    var url = redirect + (parameter ? parameter : "");
+    let url = redirect + (parameter ? parameter : "");
     if (checkParameter("NO_REDIRECT")) return;
     if (newtab !== undefined && newtab == true) {
       open(url);
@@ -63,7 +63,7 @@ function redirectToNotFound() {
 }
 
 //Load redirect data from /page-data/redirect.json
-$.getJSON("https://sorpdev.github.io/page-data/redirect.json", (data) => {
+$.getJSON("/page-data/redirect.json", (data) => {
   debug("Successfully got redirect data:");
   debug(data);
   REDIRECT_DATA = data;
@@ -71,11 +71,11 @@ $.getJSON("https://sorpdev.github.io/page-data/redirect.json", (data) => {
   if (window.location.pathname != "/") {
     executeRedirect(path.toLowerCase(), () => {
       //Check for /.../...
-      var pathSplit = path.split("/");
+      let pathSplit = path.split("/");
       if (pathSplit.length > 2) {
-        var targetPath = "/" + pathSplit[1]; //Should result in /...
-        var preParameter = pathSplit[0].length + pathSplit[1].length + 1;
-        var parameter = path.substr(preParameter, path.length); //Should result in [/...]/...
+        let targetPath = "/" + pathSplit[1]; //Should result in /...
+        let preParameter = pathSplit[0].length + pathSplit[1].length + 1;
+        let parameter = path.substring(preParameter, path.length); //Should result in [/...]/...
 
         executeRedirect(targetPath.toLowerCase(), redirectToNotFound, parameter);
       } else {
